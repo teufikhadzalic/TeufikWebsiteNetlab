@@ -3,9 +3,10 @@ import SBDLogo from './assets/SBDLogo.svg'
 import Navbar from './navbar'
 import DMJ from './DMJ'
 import OS from './os'
+import Welcome from './welcome'
 
 export default function App() {
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState('welcome') // Default ke halaman Welcome
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('darkMode') === 'true' 
   )
@@ -16,7 +17,7 @@ export default function App() {
     } else {
       document.documentElement.classList.remove('dark')
     }
-    localStorage.setItem('darkMode', isDarkMode) // Simpan preferensi ke localStorage
+    localStorage.setItem('darkMode', isDarkMode) 
   }, [isDarkMode])
 
   const toggleDarkMode = () => {
@@ -24,7 +25,7 @@ export default function App() {
   }
 
   return (
-    <div className={isDarkMode ? 'bg-customBlack text-white' : 'bg-trueBlue text-black'}>
+    <div className={isDarkMode ? 'bg-customBlack text-white' : 'bg-gray-200 text-black'}>
       <Navbar setPage={setPage} />
       <button
         onClick={toggleDarkMode}
@@ -32,6 +33,7 @@ export default function App() {
       >
         {isDarkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
+      {page === 'welcome' && <Welcome isDarkMode={isDarkMode} />}
       {page === 'home' && (
         <div className="min-h-screen flex flex-col justify-center items-center p-8">
           <div className="flex flex-col md:flex-row items-center">
@@ -41,7 +43,6 @@ export default function App() {
             </h1>
           </div>
 
-          
           <div className={`rounded-lg p-4 mt-4 max-w-4xl text-center ${isDarkMode ? 'bg-customWhite text-black' : 'bg-black text-white'}`}>
             <p className="text-md md:text-xl">
               SBD sangat keren.
@@ -49,6 +50,14 @@ export default function App() {
             <p className="text-md md:text-xl mt-2">
               Mata kuliah yang mempelajari database, frontend, backend, dll..
             </p>
+            <a
+              href="https://learn.netlabdte.com/docs/category/sbd"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4 block"
+            >
+              Link Materi: https://learn.netlabdte.com/docs/category/sbd
+            </a>
           </div>
         </div>
       )}
